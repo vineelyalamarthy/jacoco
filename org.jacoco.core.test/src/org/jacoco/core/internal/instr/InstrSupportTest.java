@@ -12,9 +12,12 @@
 package org.jacoco.core.internal.instr;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.util.Printer;
 import org.objectweb.asm.util.Textifier;
 import org.objectweb.asm.util.TraceMethodVisitor;
@@ -31,6 +34,51 @@ public class InstrSupportTest {
 	public void setup() {
 		printer = new Textifier();
 		trace = new TraceMethodVisitor(printer);
+	}
+
+	@Test
+	public void needFrames_should_return_false_for_1_1() {
+		assertFalse(InstrSupport.needsFrames(Opcodes.V1_1));
+	}
+
+	@Test
+	public void needFrames_should_return_false_for_1_2() {
+		assertFalse(InstrSupport.needsFrames(Opcodes.V1_2));
+	}
+
+	@Test
+	public void needFrames_should_return_false_for_1_3() {
+		assertFalse(InstrSupport.needsFrames(Opcodes.V1_3));
+	}
+
+	@Test
+	public void needFrames_should_return_false_for_1_4() {
+		assertFalse(InstrSupport.needsFrames(Opcodes.V1_4));
+	}
+
+	@Test
+	public void needFrames_should_return_false_for_1_5() {
+		assertFalse(InstrSupport.needsFrames(Opcodes.V1_5));
+	}
+
+	@Test
+	public void needFrames_should_return_true_for_1_6() {
+		assertTrue(InstrSupport.needsFrames(Opcodes.V1_6));
+	}
+
+	@Test
+	public void needFrames_should_return_true_for_1_7() {
+		assertTrue(InstrSupport.needsFrames(Opcodes.V1_7));
+	}
+
+	@Test
+	public void needFrames_should_return_true_for_1_8() {
+		assertTrue(InstrSupport.needsFrames(Opcodes.V1_8));
+	}
+
+	@Test
+	public void needFrames_should_return_true_for_1_9() {
+		assertTrue(InstrSupport.needsFrames(Opcodes.V9));
 	}
 
 	@Test
